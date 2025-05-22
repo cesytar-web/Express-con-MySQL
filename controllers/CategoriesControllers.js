@@ -11,11 +11,22 @@ router.get('/createTableCategories', (req, res) => {
    console.log(result)
    res.send('Posts table created...')
  })
-})
+});
 
+const CategoriesController = {
+  createCategories (req, res){
+  const { title, body } = req.body;
+  const sql = 'INSERT INTO categories (title, body) VALUES (?, ?)';
+  db.query(sql, [title, body], (err, result) => {
+    if (err) {
+      console.error('Error insertando categories:', err);
+      return res.status(500).send('Error al añadir categories');
+    }
+    res.send('categories añadido correctamente');
+  });
+  }, 
 
-// Endpoint para añadir una nueva categoría
-router.post('/categories', (req, res) => {
+postCategories (req, res) {
   const { title, body } = req.body;
   const sql = 'INSERT INTO categories (title, body) VALUES (?, ?)';
   db.query(sql, [title, body], (err, result) => {
@@ -25,11 +36,9 @@ router.post('/categories', (req, res) => {
     }
     res.send('Categoría añadida correctamente');
   });
-});
+},
 
-
-// Actualizar una categoría
-router.put('/categories/:id', (req, res) => {
+putCategoriesId (req, res) {
   const { title, body } = req.body;
   const { id } = req.params;
 
@@ -44,9 +53,9 @@ router.put('/categories/:id', (req, res) => {
     }
     res.send('Categoría actualizada correctamente');
   });
-});
-// Endpoint para obtener todas las categorías
-router.get('/categories', (req, res) => {
+},
+
+getCateg (req, res) {
   const sql = 'SELECT * FROM categories';
   db.query(sql, (err, result) => {
     if (err) {
@@ -55,23 +64,9 @@ router.get('/categories', (req, res) => {
     }
     res.json(result);
   });
-});
+},
 
-// Endpoint para obtener todas las categorías
-router.get('/categories', (req, res) => {
-  const sql = 'SELECT * FROM categories';
-  db.query(sql, (err, result) => {
-    if (err) {
-      console.error('Error obteniendo categorías:', err);
-      return res.status(500).send('Error al obtener categorías');
-    }
-    res.json(result);
-  });
-});
-
-
-// Endpoint para obtener una categoría por id
-router.get('/categories/:id', (req, res) => {
+getId(req, res) {
   const { id } = req.params;
   const sql = 'SELECT * FROM categories WHERE id = ?';
   db.query(sql, [id], (err, result) => {
@@ -84,6 +79,9 @@ router.get('/categories/:id', (req, res) => {
     }
     res.json(result[0]);
   });
-});
+}
 
-module.exports = router
+}
+
+
+module.exports = CategoriesController

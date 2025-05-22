@@ -14,6 +14,7 @@ router.get('/createTableProducts', (req, res) => {
  })
 });
 
+
 const ProductsControllers = {
   createProducts (req, res)  {
   const { title, body } = req.body;
