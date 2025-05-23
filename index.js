@@ -9,7 +9,7 @@ const db = require('./config/database.js')
 
 app.use('/products', require('./routes/products'))
 
-// app.use('/categories', require('./routes/categories'))
+app.use('/categories', require('./routes/categories'))
 
 //Endpoint de base de datos
 router.get('/createdb', (req, res) => {

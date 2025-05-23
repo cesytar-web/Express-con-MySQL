@@ -3,15 +3,13 @@ const router = express.Router()
 const CategoriesController = require('../controllers/CategoriesControllers')
 
 
-router.post('/', CatergoriesController.createCategories)
+router.post('/', CategoriesController.createCategories)
 
-router.put('/', CategoriesController.updateCategories)
+router.put('/', CategoriesController.putCategoriesId)
 
-router.get('/', CategoriesController.getAll)
+router.get('/', CategoriesController.getCateg)
 
-router.get('/products/categories', CategoriesController.getProCategories)
-
-router.get('/id/:id', CategoriesController.getById)
+router.get('/products/categories', CategoriesController.getId)
 
 router.get('/', CategoriesController.getDesc)
 
